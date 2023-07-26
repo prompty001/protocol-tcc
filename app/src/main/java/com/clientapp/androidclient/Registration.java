@@ -29,6 +29,7 @@ public class Registration extends AppCompatActivity {
 
         setTitle("Criar Conta");
 
+        TextView name = findViewById((R.id.input_name));
         TextView email = findViewById(R.id.input_email);
         TextView password = findViewById(R.id.input_passwd);
         TextView cpf = findViewById(R.id.input_cpf);
@@ -37,15 +38,15 @@ public class Registration extends AppCompatActivity {
         Button btn_registration = findViewById(R.id.btn_reg_send);
 
         btn_registration.setOnClickListener(view -> {
+            String nameInput = name.getText().toString();
             String emailInput = email.getText().toString();
             String passwordInput = password.getText().toString();
             String cpfInput = cpf.getText().toString();
             String birthdayInput = birthday.getText().toString();
 
-            String guidAndroid = getAndroidGuid();
             String androidId = getAndroidID();
 
-            postForm(emailInput, passwordInput, cpfInput, birthdayInput, guidAndroid, androidId);
+            postForm(nameInput, emailInput, passwordInput, cpfInput, birthdayInput, androidId);
         });
     }
 
@@ -54,20 +55,20 @@ public class Registration extends AppCompatActivity {
         startActivity(in);
     }
 
-    public void postForm(String email, String password, String cpf, String birthday, String androidGuid, String androidId) {
+    public void postForm(String name, String email, String password, String cpf, String birthday, String androidId) {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = new FormBody.Builder()
+                .add("name", name)
                 .add("email", email)
                 .add("password", password)
                 .add("cpf", cpf)
                 .add("birthday", birthday)
-                .add("guid", androidGuid)
                 .add("androidId", androidId)
                 .build();
 
         Request request = new Request.Builder()
-                .url("https://192.168.45.156:8000/server/register") //10.0.0.142
+                .url("https://10.0.0.142:8000/server/register") //10.0.0.142
                 .method("POST", body)
                 .build();
 
@@ -97,8 +98,8 @@ public class Registration extends AppCompatActivity {
     }
 
     // Código personalizado globalmente exclusivo (GUID)
-    public String getAndroidGuid() {
+    /*public String getAndroidGuid() {
         return UUID.randomUUID().toString();
-    }
+    }*/
 
 }

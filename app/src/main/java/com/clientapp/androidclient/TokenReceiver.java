@@ -39,7 +39,7 @@ public class TokenReceiver extends AppCompatActivity {
                 .build();
 
         Request getRequest = new Request.Builder()
-                .url("https://192.168.45.156:8000/server/codetotp")
+                .url("https://10.0.0.142:8000/server/codetotp")
                 .method("POST", body)
                 .build();
 
